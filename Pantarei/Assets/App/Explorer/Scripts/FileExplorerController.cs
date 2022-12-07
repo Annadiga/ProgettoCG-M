@@ -117,7 +117,7 @@ public class FileExplorerController : MonoBehaviour
 
         string Path = String.Format("{0}/{1}", ActualPath.Equals("/") ? "" : ActualPath, folderOrFile.GetCardInfo().GetName());
         if (!string.Equals(Path, PdfRenderer.GetLastRendered()))
-            PdfRenderer.RenderPath(String.Format("{0}/{1}", ActualPath.Equals("/") ? "" : ActualPath, folderOrFile.GetCardInfo().GetName()));
+            PdfRenderer.RenderPath(ActualPath.Equals("/") ? "" : ActualPath, folderOrFile.GetCardInfo().GetName());
         
         PdfRenderer.gameObject.SetActive(true);
         PdfRenderer.GetComponent<FollowMeToggle>().SetFollowMeBehavior(true);

@@ -1,6 +1,8 @@
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using Texts;
+using TMPro;
 using UnityEngine;
 
 public class PdfRenderer : MonoBehaviour
@@ -9,6 +11,9 @@ public class PdfRenderer : MonoBehaviour
     private GameObject PDFPlane;
     [SerializeField, Tooltip("ErrorDialog")]
     private DialogOneBtnController ErrorDialog;
+    [SerializeField, Tooltip("Text where visualize Filename and page")]
+    private TextMeshPro Title;
+    private string LastTitle = string.Empty;
 
     private MemoryStream[] files;
     private int index = 0;
@@ -17,9 +22,11 @@ public class PdfRenderer : MonoBehaviour
 
     public string GetLastRendered() { return LastRenderedPath; }
 
-    public async void RenderPath(string path)
+    public async void RenderPath(string path, string title)
     {
-        Stream[] t = await getFromUrl(path);
+        string totPath = String.Format("{0}/{1}", path, title);
+        LastTitle = title;
+        Stream[] t = await getFromUrl(totPath);
         if (t == null)
         {
             //DialogOneBtnController ErrDialog = Instantiate(ErrorDialog, new Vector3(transform.position.x, transform.position.y, transform.position.z - 42), transform.rotation);
@@ -48,8 +55,15 @@ public class PdfRenderer : MonoBehaviour
             files[i] = new MemoryStream();
             t[i].CopyTo(files[i]);
         }
+        index = 0;
         RenderStream(files[index]);
-        LastRenderedPath = path;
+        SetTitle();
+        LastRenderedPath = totPath;
+    }
+
+    private void SetTitle()
+    {
+        Title.text = String.Format("{0} Page: {1}", LastTitle, index);
     }
 
     private void RenderStream(MemoryStream toRender)
@@ -76,6 +90,7 @@ public class PdfRenderer : MonoBehaviour
         if (index >= files.Length - 1) return;
         index += 1;
         RenderStream(files[index]);
+        SetTitle();
     }
 
     public void GoBackRendering()
@@ -83,6 +98,7 @@ public class PdfRenderer : MonoBehaviour
         if (index <= 0) return;
         index -= 1;
         RenderStream(files[index]);
+        SetTitle();
     }
 
     private async ValueTask<Stream[]> getFromUrl(string path)
