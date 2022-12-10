@@ -16,11 +16,12 @@ async function generatePDFimages(pdf_folder, output_folder) {
             if (!fs.existsSync(pdf_zip_filename)) {
                 console.log(`Starting conversion for ${pdf_zip_filename}`);
                 let i = 0;
-                for await (const page of await pdf_to_img.pdf(path.join(pdf_folder, file))) {
+                for await (const page of await pdf_to_img.pdf(path.join(pdf_folder, file), { scale: 5 })) {
                     // make string of page number with leading zeros
                     const page_number = i.toString().padStart(3, '0');
                     // save page in zip as file
                     zipper.file(`page_${page_number}.png`, page);
+                    console.log(`Page ${page_number} converted.`);
                     i++;
                 }
                 console.log(`Conversion for ${pdf_zip_filename} finished, writing zip file to disk.`);
