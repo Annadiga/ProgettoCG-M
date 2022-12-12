@@ -1,8 +1,10 @@
 # OPAS, OPerator ASsistant
 
-Questa applicazione in realtá aumentata sfrutta la tecnologia Microsoft dell'[Hololens 2](https://www.microsoft.com/it-it/hololens/hardware) per fornire, ad operatori / manutentori di macchine industriali, la possibilitá di **accedere a documentazione tecnica** in maniera agevolata oltre che di **registrare** automaticamente l'inizio delle lavorazioni.
+Per visualizzare il video dimostrativo e la presentazione dell'applicazione cliccare [qui](https://drive.google.com/drive/folders/1pkXtWZZ7dKDCkc7lE9rIwaRei0dxx-2v?usp=sharing).
 
-L'applicazione é quindi in gradi di interfacciarsi con un **web server** che espone delle **API REST** al fine di comunicare con i servizi aziendali oltre che accedere alla documentazione necessaria.
+Questa applicazione in realtà aumentata sfrutta la tecnologia Microsoft dell'[Hololens 2](https://www.microsoft.com/it-it/hololens/hardware) per fornire, ad operatori / manutentori di macchine industriali, la possibilità di **accedere a documentazione tecnica** in maniera agevolata oltre che di **registrare** automaticamente l'inizio delle lavorazioni.
+
+L'applicazione è quindi in grado di interfacciarsi con un **web server** che espone delle **API REST** al fine di comunicare con i servizi aziendali oltre che accedere alla documentazione necessaria.
 
 L'app realizzata consta di **due componenti**:
 
@@ -22,7 +24,7 @@ Queste librerie forniscono molti script fondamentali per le interazioni dell'ute
 
 ### Application Workflow
 
-Abbiamo sviluppato l'applicazione tenendo conto di un caso d'uso specifico: un'impresa dispone di un servizio di **ticketig** interno in cui vengono registrati i fault avvenuti nei macchinari che devono essere riparati da un manutentore. Un manutentore puó **prendere in carico** un ticket per poi dirigersi verso il macchinario. A questo punto il manutentore puó iniziare le riparazioni avendo a disposizione la documentazione cartacea.
+Abbiamo sviluppato l'applicazione tenendo conto di un caso d'uso specifico: un'impresa dispone di un servizio di **ticketing** interno in cui vengono registrati i fault avvenuti nei macchinari che devono essere riparati da un manutentore. Un manutentore puó **prendere in carico** un ticket per poi dirigersi verso il macchinario. A questo punto il manutentore puó iniziare le riparazioni avendo a disposizione la documentazione cartacea.
 
 Con lo sviluppo di questa applicazione vengono semplificati ed automatizzati alcuni passaggi di questo processo. Il manutentore infatti (dotato di Hololens 2) é in grado di **inquadrare un codice QR** (sul macchinario di interesse) e registrare l'inizio della propria lavorazione semplicemente cliccando un tasto che verrá posizionato sul codice. A questo punto il manutentore avrá a disposizione la **documentazione digitale** in possesso dell'azienda.
 
@@ -30,7 +32,7 @@ Inoltre l'applicazione fornisce un collegamento all'applicazione Microsoft [**Dy
 
 ### Features
 
-- **Hand Menu:** Il menu concepito che é stato utilizzato per questa applicazione é un menu **a scomparsa** la cui comparsa viene controllata dai **palmi delle mani**. Inquadrando con l'hololens un palmo di una mano qualsiasi verrá mostrato il menu di navigazione dell'app accanto al mignolo e lungo il palmo della mano. L'utilizzo di un menu di questo tipo é stato dettato dalle [best practice](https://learn.microsoft.com/it-it/windows/mixed-reality/design/hand-menu) consigliate da microsoft.
+- **Hand Menu:** Il menu concepito che è stato utilizzato per questa applicazione è un menu **a scomparsa** la cui comparsa viene controllata dai **palmi delle mani**. Inquadrando con l'HoloLens un palmo di una mano qualsiasi verrá mostrato il menu di navigazione dell'app accanto al mignolo e lungo il palmo della mano. L'utilizzo di un menu di questo tipo é stato dettato dalle [best practice](https://learn.microsoft.com/it-it/windows/mixed-reality/design/hand-menu) consigliate da microsoft.
 ![Hand Menu](./imgs/hand_menu.png)
 
 - **QR Scanner:** Lo scanner di codici QR é implementato come un servizio in esecuzione in background. Nell'istante in cui viene rilevato un codice QR viene posizionato su di esso un marker ed un tasto cliccabile. Al click del tasto verrá fatta una richiesta HTTP al server da noi sviluppato contenente l'id della macchina (registrato nel QR code). Tramite questa richiesta sará possibile poi prendere in carico il ticket da parte dell'operatore. Questa funzionalitá é attivabile/disattivabile dal menú.
