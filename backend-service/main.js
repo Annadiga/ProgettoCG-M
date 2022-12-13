@@ -14,12 +14,27 @@ app.get("/path", (req, res) => {
     var return_json = [];
     fs.readdir(path_to_watch, (err, files) => {
         return_json = files.map(file => {
-            const splitted = file.split(".");
+            // if directory return name and extension FOLDER
+            if (fs.statSync(path.join(path_to_watch, file)).isDirectory()) {
+                return {
+                    name: file,
+                    extension: "FOLDER",
+                };
+            } 
+            // if file without extension return name and empty extension
+            const file_name = file.split('.');
+            if (file_name.length == 1) {
+                return {
+                    name: file_name[0],
+                    extension: "",
+                };
+            }
+            // if file with extension return name and extension
+            const file_extension = file_name.pop();
             return {
-                name: splitted[0],
-                extension: splitted[1] ? splitted[1] : "FOLDER",
+                name: file_name.join('.'),  // rejoin name cause extension was popped
+                extension: file_extension,
             };
-
         });
         res.json(return_json);
         console.log("OK PATH", return_json);
