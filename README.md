@@ -46,14 +46,18 @@ Inoltre l'applicazione fornisce un collegamento all'applicazione Microsoft [**Dy
 
 - **Dynamics 365 connection:** Se l'utente dovesse avere necessitá di un supporto ulteriore da parte di un tecnico specializzato, sará possibile lanciare l'applicazione Dynamics 365 di Microsoft direttamente da OPAS, rendendo l'app piú integrata.
 
-## Server side App: Node JS api rest
+## Server side App: OPAS backend service
 
-Le api rest sviluppate in [Node JS](https://nodejs.org/en/) forniscono una serie limitata di endpoint ma fondamentale per il funzionamento corretto dell'applicazione sviluppata per hololens.
+Abbiamo sviluppato il servizio backend per OPAS in [Node.js](https://nodejs.org/en/), che espone l'endpoint per la validazione del QR code e quello per la navigazione nel file system della documentazione.
+
+Per le note tecniche relative alla configurazione e all'avvio, vedi lo specifico [README](./backend-service/README.md).
+
+Di seguito sono riportati i dettagli degli endpoint implementati.
 
 ### Endpoints
 
-- **Test endpoint: *\<server-host-name>:3000/*** torna "Ok", per testare la connessione,
-- **\<server-host-name>:3000/path?path=\<some-path>**: torna le directory e/o i file contenuti nel path specificato,
-- **\<server-host-name>:3000/QR?id=\<some-id>**: torna e logga una stringa contenete l'id. In futuro dovrebbe controllare la presenza di ticket collegati a quella macchina ed in caso avvisare che quel ticket é stato preso in carico.
+- **Test endpoint: *\<server-host-name>:3000/*** torna "Ok", per testare la connessione al server;
+- **\<server-host-name>:3000/path?path=\<some-path>**: restituisce una lista JSON che presenta le directory e/o i file contenuti nel path specificato;
+- **\<server-host-name>:3000/QR?id=\<some-id>**: risponde con lo stesso ID ricevuto (ottenuto dalla decodifica del QR code) per confermare all'operatore la validazione dell'ID. In produzione dovrebbe registrare nel database l'accesso alla macchina con l'ID specificato.
 
 Vengono inoltre serviti i file statici contenenti la documentazione necessaria accessibili previa costruzione del path tramite l'endopint */path* sopra descritto.
