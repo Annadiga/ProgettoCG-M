@@ -9,7 +9,7 @@ app.use(express.static(static_path));
 
 app.get("/", (req, res) => res.send("OK\n"));
 app.get("/path", (req, res) => {
-    const required_path = req.query.path;
+    const required_path = req.query.path || "";
     const path_to_watch = path.join(static_path, required_path);
     if (!fs.existsSync(path_to_watch) || !fs.statSync(path_to_watch).isDirectory()){
         res.sendStatus(404);

@@ -16,6 +16,6 @@ In caso si preferisca utilizzare un container Docker invece che installare Node.
 ## Configurazione rete locale
 Per permettere l'accesso al servizio dall'app OPAS su HoloLens è necessario che il dispositivo e il computer su cui è in esecuzione il servizio backend si trovino sulla stessa rete locale e che il computer abbia indirizzo IP `192.168.137.1`.
 
-Si consiglia di utilizzare la funzione Hotspot di Windows 10/11 per creare una rete locale WiFi alla quale far connettere l'Hololens, dato che Windows configurerà di default per se stesso l'indirizzo IP desiderato.
+Si consiglia di utilizzare la funzione Hotspot di Windows 10/11 per creare una rete locale WiFi alla quale far connettere l'Hololens, dato che Windows configurerà di default per se stesso l'indirizzo IP corretto.
 
 Si tratta ovviamente di una limitazione legata al fatto che questa implementazione è solo a fini dimostrativi, nel caso reale il backend dovrebbe essere eseguito su un server accessibile dalla rete aziendale, protetto da un sistema di autenticazione.
