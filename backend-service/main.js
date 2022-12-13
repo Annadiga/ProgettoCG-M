@@ -12,6 +12,11 @@ app.get("/path", (req, res) => {
     const required_path = req.query.path;
     const path_to_watch = path.join(static_path, required_path);
     var return_json = [];
+    if (!fs.existsSync(path_to_watch) || !fs.statSync(path_to_watch).isDirectory()){
+        res.sendStatus(404);
+        console.warn("NOT OK PATH", path_to_watch);
+        return;
+    }
     fs.readdir(path_to_watch, (err, files) => {
         return_json = files.map(file => {
             // if directory return name and extension FOLDER
