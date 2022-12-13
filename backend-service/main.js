@@ -9,17 +9,36 @@ app.use(express.static(static_path));
 
 app.get("/", (req, res) => res.send("OK\n"));
 app.get("/path", (req, res) => {
-    const required_path = req.query.path;
+    const required_path = req.query.path || "";
     const path_to_watch = path.join(static_path, required_path);
-    var return_json = [];
-    fs.readdir(path_to_watch, (err, files) => {
-        return_json = files.map(file => {
-            const splitted = file.split(".");
+    if (!fs.existsSync(path_to_watch) || !fs.statSync(path_to_watch).isDirectory()){
+        res.sendStatus(404);
+        console.warn("NOT OK PATH", path_to_watch);
+        return;
+    }
+    fs.readdir(path_to_watch, {withFileTypes: true}, (err, files) => {
+        const return_json = files.map(file => {
+            // if directory return name and extension FOLDER
+            if (file.isDirectory()) {
+                return {
+                    name: file.name,
+                    extension: "FOLDER",
+                };
+            }
+            // if file without extension return name and empty extension
+            const splitted_file_name = file.name.split('.');
+            if (splitted_file_name.length == 1) {
+                return {
+                    name: splitted_file_name[0],
+                    extension: "",
+                };
+            }
+            // if file with extension return name and extension
+            const file_extension = splitted_file_name.pop();
             return {
-                name: splitted[0],
-                extension: splitted[1] ? splitted[1] : "FOLDER",
+                name: splitted_file_name.join('.'),  // rejoin name cause extension was popped
+                extension: file_extension,
             };
-
         });
         res.json(return_json);
         console.log("OK PATH", return_json);
@@ -33,4 +52,4 @@ app.get("/QR", (req, res) => {
     res.send(res_str);
 });
 
-app.listen(3000);
+app.listen(3000, () => console.log("Server started on port 3000"));
