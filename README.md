@@ -1,6 +1,6 @@
 # OPAS, OPerator ASsistant
 
-Per visualizzare il video dimostrativo e la presentazione dell'applicazione cliccare [qui](https://drive.google.com/drive/folders/1pkXtWZZ7dKDCkc7lE9rIwaRei0dxx-2v?usp=sharing).
+La build del progetto in formato .zip, il video dimostrativo e la presentazione dell'applicazione sono disponibili al seguente [link](https://drive.google.com/drive/folders/1pkXtWZZ7dKDCkc7lE9rIwaRei0dxx-2v?usp=sharing).
 
 Questa applicazione in realtà aumentata sfrutta la tecnologia Microsoft dell'[Hololens 2](https://www.microsoft.com/it-it/hololens/hardware) per fornire, ad operatori / manutentori di macchine industriali, la possibilità di **accedere a documentazione tecnica** in maniera agevolata oltre che di **registrare** automaticamente l'inizio delle lavorazioni.
 
