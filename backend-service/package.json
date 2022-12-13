@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "patch": "copyfiles -V -u 1 ./npm_patch/**/* ./node_modules",
     "convert": "node convert.js",
     "start-dev": "nodemon main.js",
     "start": "node main.js"
@@ -19,6 +18,6 @@
   "dependencies": {
     "express": "^4.18.1",
     "jszip": "^3.10.1",
-    "pdf-to-img": "^2.0.0"
+    "pdf-to-img": "^2.1.1"
   }
 }
