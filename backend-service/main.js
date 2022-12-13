@@ -16,27 +16,27 @@ app.get("/path", (req, res) => {
         console.warn("NOT OK PATH", path_to_watch);
         return;
     }
-    fs.readdir(path_to_watch, (err, files) => {
+    fs.readdir(path_to_watch, {withFileTypes: true}, (err, files) => {
         const return_json = files.map(file => {
             // if directory return name and extension FOLDER
-            if (fs.statSync(path.join(path_to_watch, file)).isDirectory()) {
+            if (file.isDirectory()) {
                 return {
-                    name: file,
+                    name: file.name,
                     extension: "FOLDER",
                 };
-            } 
+            }
             // if file without extension return name and empty extension
-            const file_name = file.split('.');
-            if (file_name.length == 1) {
+            const splitted_file_name = file.name.split('.');
+            if (splitted_file_name.length == 1) {
                 return {
-                    name: file_name[0],
+                    name: splitted_file_name[0],
                     extension: "",
                 };
             }
             // if file with extension return name and extension
-            const file_extension = file_name.pop();
+            const file_extension = splitted_file_name.pop();
             return {
-                name: file_name.join('.'),  // rejoin name cause extension was popped
+                name: splitted_file_name.join('.'),  // rejoin name cause extension was popped
                 extension: file_extension,
             };
         });
